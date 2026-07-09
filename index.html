@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2C6Z | Semi-Anarchy Minecraft Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">2C6Z</div>
+        <nav>
+            <a href="#rules">Rules</a>
+            <a href="#info">Server Info</a>
+            <a href="https://discord.gg/yourlink" target="_blank" class="discord-btn">Discord</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>2C6Z</h1>
+            <p class="tagline">Pure Survival. Loose Rules. No Handouts.</p>
+            
+            <!-- Clickable IP Box -->
+            <div class="ip-box" onclick="copyIP()" title="Click to copy IP">
+                <span id="ip-text">play.2c6z.xyz</span>
+                <span class="tooltip" id="myTooltip">Click to copy</span>
+            </div>
+            
+            <p class="player-count">Players Online: <span id="slots">...</span></p>
+        </div>
+    </section>
+
+    <section id="rules" class="content-section">
+        <h2>The Rules</h2>
+        <p class="section-desc">This is semi-anarchy. Know where the line is drawn before you play.</p>
+        <hr>
+        <ul>
+            <li><strong>Allowed:</strong> Raiding, griefing, stealing, and ruthless PVP anywhere in the world.</li>
+            <li><strong>Banned:</strong> Hacked clients (X-ray, fly, killaura, speed), duping, and intentional lag machines.</li>
+            <li><strong>Chat:</strong> Keep it competitive, but don't dox players or break basic platform TOS.</li>
+        </ul>
+    </section>
+
+    <section id="info" class="content-section grey-bg">
+        <h2>Server Info</h2>
+        <hr>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Hardware</h3>
+                <p>Hosted on high-performance PebbleHost nodes for maximum TPS and low latency.</p>
+            </div>
+            <div class="info-card">
+                <h3>World</h3>
+                <p>A massive, unforgiving map. No claims, no land protection, and completely vanilla world generation.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Copy IP to Clipboard Function
+        function copyIP() {
+            navigator.clipboard.writeText("play.2c6z.xyz");
+            let tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copied IP!";
+            setTimeout(() => {
+                tooltip.innerHTML = "Click to copy";
+            }, 2000);
+        }
+
+        // Fetch Live Player Count from Minetools API
+        async function getPlayerCount() {
+            try {
+                let response = await fetch('https://api.minetools.eu/ping/play.2c6z.xyz');
+                let data = await response.json();
+                
+                if (data.players) {
+                    document.getElementById('slots').innerText = data.players.online;
+                } else {
+                    document.getElementById('slots').innerText = "Offline";
+                }
+            } catch (error) {
+                console.log("Error fetching server status", error);
+                document.getElementById('slots').innerText = "Offline";
+            }
+        }
+        
+        // Initial load
+        getPlayerCount();
+        // Refresh player count every 30 seconds
+        setInterval(getPlayerCount, 30000);
+    </script>
+</body>
+</html>
