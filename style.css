@@ -210,6 +210,16 @@ li {
     color: var(--accent-color);
 }
 
+.anarchy-footer {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--accent-color);
+    margin-top: 40px;
+    text-shadow: 0 0 15px rgba(229, 62, 62, 0.6);
+}
+
 /* Responsive Scaling */
 @media (max-width: 768px) {
     .hero h1 { font-size: 3.5rem; }
